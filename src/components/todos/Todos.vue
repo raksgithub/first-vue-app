@@ -22,6 +22,7 @@
 
 <script>
 import Todo from "./todo/Todo";
+import { v4 } from 'uuid';
 export default {
   name: "Todos",
   components: {
@@ -31,10 +32,10 @@ export default {
     return {
       newTodo: "",
       todos: [
-        { id: 1, text: "Learn Vue", completed: false },
-        { id: 2, text: "Go to School", completed: false },
-        { id: 3, text: "Buy some breads", completed: false },
-        { id: 4, text: "Eat your breakfast", completed: true }
+        { id: v4(), text: "Learn Vue", completed: false },
+        { id: v4(), text: "Go to School", completed: false },
+        { id: v4(), text: "Buy some breads", completed: false },
+        { id: v4(), text: "Eat your breakfast", completed: true }
       ],
       done: 0
     };
@@ -48,7 +49,7 @@ export default {
   methods: {
     addTodo: function() {
       this.todos.push({
-        id: this.todos.length + 1,
+        id: v4(),
         text: this.newTodo,
         completed: false
       });
