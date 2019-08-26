@@ -1,7 +1,9 @@
 <template>
   <div>
     <ul>
-      <strong>Total ({{ todos.length }}), Done ({{ done }}), Pending ({{ todos.length - done }})</strong>
+      <strong>
+        Total ({{ todos.length }}), Done ({{ done }}), Pending ({{ todos.length - done }})
+      </strong>
       <Todo
         v-for="todo in todos"
         :key="todo.id"
@@ -14,22 +16,26 @@
         <input type="text" v-model="newTodo" placeholder="Enter new todo" />
       </div>
       <div v-else v-for="(bulkTodo, index) in bulkTodos" :key="index">
-        <input type="text" v-model="bulkTodos[index]" v-bind:placeholder="`Enter Todo ${index + 1}`" />
+        <input
+          type="text"
+          v-model="bulkTodos[index]"
+          v-bind:placeholder="`Enter Todo ${index + 1}`"
+        />
       </div>
       <br />
       <br />
-      <span>Addition: </span>
-      <button @click="addTodo">{{ bulk ? 'Bulk Add' : 'Add Todo' }}</button>&nbsp;
-      <button @click="addInBulk" v-if="!bulk">Add In Bulk</button>&nbsp;
+      <span>Addition:&nbsp;</span>
+      <button @click="addTodo">Add Todo</button>&nbsp;
+      <button @click="addInBulk">Bulk Add</button>
       <br />
       <br />
-      <span>Deletion: </span>
-      <button @click="removeTodo">{{ bulkRemove ? 'Bulk Remove' : 'Remove Todo' }}</button>&nbsp;
-      <button @click="removeAll">Remove All</button>&nbsp;
-      <button v-if="!bulkRemove" @click="removeInBulk">Bulk Remove</button>
+      <span>Deletion:&nbsp;</span>
+      <button @click="removeTodo">Remove Todo</button>&nbsp;
+      <button @click="removeInBulk">Bulk Remove</button>&nbsp;
+      <button @click="removeAll">Remove All</button>
       <br />
       <br />
-      <span>Reset: </span>
+      <span>Reset:&nbsp;</span>
       <button @click="reset">Reset</button>
     </ul>
   </div>
@@ -56,7 +62,6 @@ export default {
     done: 0,
     todos_copy: [],
     bulk: false,
-    bulkCount: 0,
     bulkTodos: [],
     bulkRemove: false
   }),
@@ -70,28 +75,16 @@ export default {
   },
   methods: {
     addTodo: function() {
-      if (!this.bulk) {
-        // Non Bulk add
-        if (this.newTodo !== "") {
-          this.todos.push({
-            id: v4(),
-            text: this.newTodo,
-            completed: false
-          });
-          this.newTodo = "";
-        } else {
-          alert("Todo can't be empty");
-        }
-      } else {
-        // Bulk Add
-        const newTodos = this.bulkTodos.map(bulkTodo => ({
+      // Non Bulk add
+      if (this.newTodo !== "") {
+        this.todos.push({
           id: v4(),
-          text: bulkTodo,
+          text: this.newTodo,
           completed: false
-        }));
-        this.todos = [...this.todos, ...newTodos];
-        this.bulk = false;
-        this.bulkTodos = [];
+        });
+        this.newTodo = "";
+      } else {
+        alert("Todo can't be empty");
       }
     },
     removeTodo: function() {
@@ -116,15 +109,36 @@ export default {
       });
     },
     addInBulk: function() {
-      const count = Number(prompt('How many ?'));
-      this.bulk = true;
-      this.bulkCount = count;
-      for (let i = 0; i < count; i++) {
-        this.bulkTodos.push('');
+      if (!this.bulk) {
+        const count = Number(prompt("How many ?"));
+        this.bulk = true;
+        for (let i = 0; i < count; i++) {
+          this.bulkTodos.push("");
+        }
+      } else {
+        // Bulk Add
+        let emptyTodos = 0;
+        this.bulkTodos.forEach(todo => {
+          if(todo === '') {
+            emptyTodos++;
+          }
+        });
+        if(emptyTodos > 0) {
+          alert(`${emptyTodos} ${emptyTodos > 1 ? 'todos are': 'todo is'} empty`);
+          return;
+        }
+        const newTodos = this.bulkTodos.map(bulkTodo => ({
+          id: v4(),
+          text: bulkTodo,
+          completed: false
+        }));
+        this.todos = [...this.todos, ...newTodos];
+        this.bulk = false;
+        this.bulkTodos = [];
       }
     },
     removeInBulk: function() {
-      const count = Number(prompt('How many ?'));
+      const count = Number(prompt("How many ?"));
       this.bulkRemove = true;
       this.todos.splice(-count);
     }
