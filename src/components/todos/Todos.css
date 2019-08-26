@@ -16,15 +16,30 @@ span {
 
 .todo-operation button {
   border: none;
-  cursor: pointer;
   border-radius: 5px;
   height: 35px;
   width: 105px;
 }
 
 .todo-operation button:hover {
+  cursor: pointer;
   color: rgb(141, 92, 130);
   font-size: 15px;
+}
+
+.todo-operation button:disabled {
+  cursor: no-drop;
+  color: rgb(187, 175, 175);
+  font-size: 13px;
+  background: rgb(237, 240, 240);
+}
+
+.todo-operation button:active {
+  outline: none;
+}
+
+.todo-operation button:focus {
+  outline: none;
 }
 
 .new-todo {
@@ -34,6 +49,10 @@ span {
   color: black;
   border: 1px solid rgb(65, 150, 189);
   width: 200px;
+}
+
+.new-todo:focus {
+  outline: none;
 }
 
 .bulk-x {

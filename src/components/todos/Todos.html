@@ -1,50 +1,40 @@
 <div>
-    <ul>
-        <strong>
-            Total ({{ todos.length }}), Done ({{ done }}), Pending ({{ todos.length - done }})
-        </strong>
-        <div v-if="todos.length === 0" class="empty-todo">
-            Todo list is empty. Please add some todos in it.
-        </div>
-        <div v-else class="empty-todo">
-            <Todo 
-                v-for="todo in todos" 
-                :key="todo.id" 
-                :todo="todo" 
-                :onTodoClick="handleTodoClick"
-                :onToggleTodo="toggleTodo" 
-            />
-        </div>
-        <div v-if="!bulk">
-            <input type="text" v-model="newTodo" placeholder="Enter new todo" class='new-todo' />
-        </div>
-        <div v-else v-for="(bulkTodo, index) in bulkTodos" :key="index" class="bulk-todo">
-            <div>
-                <input 
-                    type="text" 
-                    v-model="bulkTodos[index]" 
-                    :placeholder="`Enter Todo ${index + 1}`"
-                    class='new-todo' 
-                />
-                <button @click="removeFromBulk(index)" class='bulk-x'>x</button>
-            </div>
-        </div>
-        <div class="todo-operation">
-            <div class="todo-addition">
-                <span>Addition:&nbsp;</span>
-                <button @click="addTodo" :disabled="bulk">Add Todo</button>&nbsp;
-                <button @click="addInBulk" :disabled="newTodo !== ''">Bulk Add</button>
-            </div>
-            <div class="todo-deletion">
-                <span>Deletion:&nbsp;</span>
-                <button @click="removeTodo">Remove Todo</button>&nbsp;
-                <button @click="removeInBulk">Bulk Remove</button>&nbsp;
-                <button @click="removeAll">Remove All</button>
-            </div>
-            <div class="todo-reset">
-                <span>Reset:&nbsp;</span>
-                <button @click="reset">Reset</button>
-            </div>
-        </div>
-    </ul>
+  <ul>
+    <strong>
+      Total ({{ todos.length }}), Done ({{ done }}), Pending ({{ todos.length - done }})
+    </strong>
+    <div v-if="todos.length === 0" class="empty-todo">
+      Todo list is empty. Please add some todos in it.
+    </div>
+    <div v-else class="empty-todo">
+      <Todo v-for="todo in todos" :key="todo.id" :todo="todo" :onTodoClick="handleTodoClick"
+        :onToggleTodo="toggleTodo" />
+    </div>
+    <div v-if="!bulk">
+      <input type="text" v-model="newTodo" placeholder="Enter new todo" class='new-todo' />
+    </div>
+    <div v-else v-for="(bulkTodo, index) in bulkTodos" :key="index" class="bulk-todo">
+      <div>
+        <input type="text" v-model="bulkTodos[index]" :placeholder="`Enter Todo ${index + 1}`" class='new-todo' />
+        <button @click="removeFromBulk(index)" class='bulk-x'>x</button>
+      </div>
+    </div>
+    <div class="todo-operation">
+      <div class="todo-addition">
+        <span>Addition:&nbsp;</span>
+        <button @click="addTodo" :disabled="bulk">Add Todo</button>&nbsp;
+        <button @click="addInBulk" :disabled="newTodo !== ''">Bulk Add</button>
+      </div>
+      <div class="todo-deletion">
+        <span>Deletion:&nbsp;</span>
+        <button @click="removeTodo">Remove Todo</button>&nbsp;
+        <button @click="removeInBulk">Bulk Remove</button>&nbsp;
+        <button @click="removeAll">Remove All</button>
+      </div>
+      <div class="todo-reset">
+        <span>Reset:&nbsp;</span>
+        <button @click="reset">Reset</button>
+      </div>
+    </div>
+  </ul>
 </div>
