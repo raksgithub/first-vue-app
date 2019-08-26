@@ -14,17 +14,23 @@
         <input type="text" v-model="newTodo" placeholder="Enter new todo" />
       </div>
       <div v-else v-for="(bulkTodo, index) in bulkTodos" :key="index">
-        <input type="text" v-model="bulkTodos[index]" v-bind:placeholder="'Enter Bulk Todo ' + (index + 1)" />
+        <input type="text" v-model="bulkTodos[index]" v-bind:placeholder="`Enter Todo ${index + 1}`" />
       </div>
       <br />
       <br />
+      <span>Addition: </span>
       <button @click="addTodo">{{ bulk ? 'Bulk Add' : 'Add Todo' }}</button>&nbsp;
-      <button @click="removeTodo">Remove Todo</button>&nbsp;
-      <button @click="reset">Reset</button>
-      <br />
-      <br />
       <button @click="addInBulk" v-if="!bulk">Add In Bulk</button>&nbsp;
-      <button @click="removeAll">Remove All</button>
+      <br />
+      <br />
+      <span>Deletion: </span>
+      <button @click="removeTodo">{{ bulkRemove ? 'Bulk Remove' : 'Remove Todo' }}</button>&nbsp;
+      <button @click="removeAll">Remove All</button>&nbsp;
+      <button v-if="!bulkRemove" @click="removeInBulk">Bulk Remove</button>
+      <br />
+      <br />
+      <span>Reset: </span>
+      <button @click="reset">Reset</button>
     </ul>
   </div>
 </template>
@@ -50,8 +56,9 @@ export default {
     done: 0,
     todos_copy: [],
     bulk: false,
-    addInBulkCount: 0,
-    bulkTodos: []
+    bulkCount: 0,
+    bulkTodos: [],
+    bulkRemove: false
   }),
   created() {
     // Shallow recursive copy of todos
@@ -109,12 +116,17 @@ export default {
       });
     },
     addInBulk: function() {
-      const count = Number(prompt("How many ?"));
+      const count = Number(prompt('How many ?'));
       this.bulk = true;
-      this.addInBulkCount = count;
+      this.bulkCount = count;
       for (let i = 0; i < count; i++) {
-        this.bulkTodos.push("");
+        this.bulkTodos.push('');
       }
+    },
+    removeInBulk: function() {
+      const count = Number(prompt('How many ?'));
+      this.bulkRemove = true;
+      this.todos.splice(-count);
     }
   }
 };
@@ -123,5 +135,8 @@ export default {
 <style>
 strong {
   text-decoration: underline;
+}
+span {
+  font-weight: bold;
 }
 </style>
