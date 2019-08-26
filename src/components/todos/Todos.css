@@ -1,0 +1,54 @@
+span {
+  font-weight: bold;
+}
+.empty-todo {
+  margin: 10px 0;
+}
+
+.todo-operation {
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.todo-operation button {
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 35px;
+  width: 105px;
+}
+
+.todo-operation button:hover {
+  color: rgb(141, 92, 130);
+  font-size: 15px;
+}
+
+.new-todo {
+  border-radius: 5px;
+  height: 30px;
+  text-align: center;
+  color: black;
+  border: 1px solid rgb(65, 150, 189);
+  width: 200px;
+}
+
+.bulk-x {
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  font-size: 20px;
+  margin: 0 0.3rem;
+}
+
+.bulk-todo {
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
