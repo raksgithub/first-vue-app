@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>{{ msg }}</h1>
-    <p>{{ greet }}</p>
   </div>
 </template>
 
@@ -10,11 +9,6 @@
     name: 'HelloWorld',
     props: {
       msg: String
-    },
-    data: function() {
-      return {
-        greet: 'Hey Sam!'
-      }
     }
   }
 </script>
